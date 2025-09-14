@@ -1,26 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-const initialFriends = [
-  {
-    id: 118836,
-    name: 'Clark',
-    image: 'https://i.pravatar.cc/48?u=118836',
-    balance: -7,
-  },
-  {
-    id: 933372,
-    name: 'Sarah',
-    image: 'https://i.pravatar.cc/48?u=933372',
-    balance: 20,
-  },
-  {
-    id: 499476,
-    name: 'Anthony',
-    image: 'https://i.pravatar.cc/48?u=499476',
-    balance: 0,
-  },
-]
+const initialFriends = []
 
 function Button({ children, onClick, variant = 'primary', className = '' }) {
   return (
@@ -31,7 +12,7 @@ function Button({ children, onClick, variant = 'primary', className = '' }) {
 }
 
 function App() {
-  const [friends, setFriends] = useState(initialFriends)
+  const [friends, setFriends] = useState([])
   const [showAddFriend, setShowAddFriend] = useState(false)
   const [selectedFriend, setSelectedFriend] = useState(null)
   const [showHint, setShowHint] = useState(true)
@@ -169,7 +150,23 @@ function App() {
   )
 }
 
+function handleEnterSubmit(e, submitFn) {
+  if (e.key === 'Enter') {
+    submitFn()
+  }
+}
+
 function FriendsList({ friends, onSelection, selectedFriend }) {
+  if (friends.length === 0) {
+    return (
+      <div className="empty-friends-state">
+        <div className="welcome-icon">👋</div>
+        <h3>Welcome to SplitWise!</h3>
+        <p>Add your first friend to start splitting bills</p>
+      </div>
+    )
+  }
+
   return (
     <div className="friends-list">
       {friends.map((friend) => (
@@ -255,6 +252,7 @@ function FormAddFriend({ onAddFriend }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="form-input"
+          onKeyDown={(e) => handleEnterSubmit(e, handleSubmit)}
         />
       </div>
 
@@ -267,6 +265,7 @@ function FormAddFriend({ onAddFriend }) {
           value={image}
           onChange={(e) => setImage(e.target.value)}
           className="form-input"
+          onKeyDown={(e) => handleEnterSubmit(e, handleSubmit)}
         />
       </div>
 
@@ -307,6 +306,7 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
             value={bill}
             onChange={(e) => setBill(Number(e.target.value))}
             className="form-input"
+            onKeyDown={(e) => handleEnterSubmit(e, handleSubmit)}
           />
         </div>
 
@@ -326,6 +326,7 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
               )
             }
             className="form-input"
+            onKeyDown={(e) => handleEnterSubmit(e, handleSubmit)}
           />
         </div>
 
