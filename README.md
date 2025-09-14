@@ -16,7 +16,7 @@ A modern, sleek bill-splitting app built with **React**. Track expenses with fri
 ---
 
 ## 🚀 Quick Start
-Access It Here: splitwise-fawn.vercel.app
+Access It Here: [splitwise-fawn.vercel.app](https://splitwise-fawn.vercel.app/)
 
 **OR**
 
