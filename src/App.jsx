@@ -105,6 +105,7 @@ function App() {
             <FormSplitBill
               selectedFriend={selectedFriend}
               onSplitBill={handleSplitBill}
+              key={selectedFriend.name}
             />
           ) : (
             <div className="empty-state">
